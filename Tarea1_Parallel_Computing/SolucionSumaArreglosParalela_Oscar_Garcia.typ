@@ -97,7 +97,7 @@
 #outline(title: [Índice],depth: 3)
 #pagebreak()
 
-#let running_title = "Spin Voyager & Spin Compass: Propuesta de Proyecto"
+#let running_title = "Computación en la nube: Programación de una solución paralela"
 #counter(page).update(1)
 #set page(
   header: context [
@@ -116,196 +116,267 @@
 
 = Introducción
 
-Tradicionalmente, el software se ha escrito para el cómputo secuencial: 
-un programa recibe una instrucción, la ejecuta y, solo cuando termina, 
-pasa a la siguiente. Sin embargo, los procesadores modernos cuentan con múltiples núcleos (cores) 
-que pueden trabajar simultáneamente. 
+Tradicionalmente, el software se ha escrito para el cómputo secuencial:
+un programa recibe una instrucción, la ejecuta y, solo cuando termina,
+pasa a la siguiente. Sin embargo, los procesadores modernos cuentan con múltiples núcleos (cores)
+que pueden trabajar simultáneamente.
 
-La programación en paralelo es el proceso de dividir un problema grande en partes más pequeñas 
+La programación en paralelo es el proceso de dividir un problema grande en partes más pequeñas
 que pueden resolverse al mismo tiempo, aprovechando cada núcleo del procesador de forma concurrente
 y, de esta forma, optimizar el tiempo de ejecución.
 
 El uso de paralelismo es fundamental en el desarrollo actual por varias razones:
 
-- Reducción de Tiempo: Tareas que tardarían horas en un solo hilo pueden completarse en minutos 
+- Reducción de Tiempo: Tareas que tardarían horas en un solo hilo pueden completarse en minutos
   al distribuir la carga.
 - Manejo de Big Data: Permite procesar volúmenes masivos de información que, de otro modo,
   saturarían un solo núcleo.
-- Eficiencia Energética: A menudo es más eficiente realizar un trabajo rápido usando 
-  varios núcleos a una frecuencia moderada que forzar un solo núcleo a su máxima capacidad 
+- Eficiencia Energética: A menudo es más eficiente realizar un trabajo rápido usando
+  varios núcleos a una frecuencia moderada que forzar un solo núcleo a su máxima capacidad
   por mucho tiempo.
 
-En este proyecto, utilizamos OpenMP (Open Multi-Processing), una interfaz de programación 
-de aplicaciones (API) que permite añadir paralelismo a códigos escritos en C++ mediante 
-"pragmas" o directivas de compilador. Es una de las herramientas más potentes 
-para cómputo de alto rendimiento debido a su facilidad de implementación en sistemas de memoria 
-compartida. El código fuente del proyecto se encuentra disponible en el repositorio de GitHub:
+En este proyecto, utilizamos OpenMP (Open Multi-Processing), una interfaz de programación
+de aplicaciones (API) que permite añadir paralelismo a códigos escritos en C++ mediante
+"pragmas" o directivas de compilador. Es una de las herramientas más potentes
+para cómputo de alto rendimiento debido a su facilidad de implementación en sistemas de memoria
+compartida.
 
-#link("https://github.com/oscar-garcia-g/SumaArreglosParalela")
+El código fuente del proyecto se encuentra disponible en el *repositorio de GitHub:*
 
-#pagebreak()
-
-= Antecedentes
-Spin es una organización que opera en el sector financiero y que man-
-tiene una estructura de comunicación interna altamente dependiente de he-
-rramientas digitales, particularmente Slack. Dentro de este entorno, el área
-de Finanzas es responsable de la gestión, análisis y validación de los gas-
-tos de viaje realizados por los colaboradores, conocidos internamente como
-_Spinners_.
-
-Actualmente, dicho proceso se realiza de forma mayormente manual,
-lo que implica la revisión individual de cada registro con el fin de ve-
-rificar el cumplimiento de las políticas internas. Paralelamente, las consultas
-relacionadas con políticas internas de viajes, viáticos, equipos de cómputo y telefonía, etc.
-se atienden a través de múltiples canales, como mensajes directos, correos
-electrónicos y llamadas, sin contar con un punto centralizado de referencia.
-
-La información oficial de la organización se encuentra distribuida en dis-
-tintas plataformas y formatos, tales como Google Drive, Slack, Canvas y La
-Órbita (plataforma werb interna), lo que provoca confusión, versiones contradictorias
-y consumo de información desactualizada. Este contexto genera fricción operativa,
-reprocesos y una limitada capacidad de escalamiento conforme la organización crece.
-
-Ante estas condiciones, surge la iniciativa de desarrollar una solución
-integral que centralice la información institucional, automatice la gestión
-de gastos de viaje y provea un asistente conversacional capaz de resolver
-dudas frecuentes de manera consistente, confiable y alineada con las políticas
-oficiales de Spin.
+#link("https://github.com/oscargarciatec/Cloud_Computing/blob/main/Tarea1_Parallel_Computing/Tarea1.cpp")
 
 #pagebreak()
 
-= Entendimiento del negocio
-
-== Formulación del problema
-
-El problema central que se busca resolver es la ineficiencia operativa derivada
-de la gestión manual de los gastos de viaje y de la atención descentralizada
-de consultas sobre políticas internas. Esta situación genera altos costos
-de tiempo, errores humanos, respuestas inconsistentes y una dependencia
-excesiva del criterio individual del personal del área de Finanzas.
-
-== Contexto
-
-El crecimiento de la organización ha incrementado tanto el volumen de
-gastos de viaje como la cantidad de consultas internas. Sin embargo, los
-procesos y herramientas actuales no escalan al mismo ritmo, lo que provoca
-saturación operativa y afecta negativamente la experiencia de los colaboradores.
-La ausencia de un sistema centralizado limita la trazabilidad y dificulta
-la estandarización de la información.
-
-Resolver este problema es fundamental para mejorar la eficiencia del área
-de Finanzas, garantizar coherencia institucional y ofrecer una experiencia
-más ágil y clara a los _Spinners_ dentro de su flujo de trabajo habitual.
-
-La Figura 1 presenta la arquitectura general de la solución propuesta, en
-la cual se integran los canales de interacción de los usuarios, el asistente con-
-versacional, los procesos de validación de gastos de viaje y la infraestructura
-que soporta el uso de modelos de aprendizaje automático.
+= Capturas de pantalla de los ejercicios realizados
 
 #figure(
-    image("images/Arquitectura_Voyager.png", width: 100%),
-    caption: [Arquitectura general de la solución Spin Voyager.]
+    image("images/Ejercicio1.png", width: 100%),
+    caption: [Ejecución del proyecto con 1000 números generados, chunks de tamaño 100 e impresión de 10 resultados.]
   )
 
-== Objetivos
-
-El objetivo del proyecto es diseñar e implementar una plataforma inteligente
-que permita automatizar la gestión y validación de los gastos de viaje,
-así como un asistente conversacional integrado en Slack que centralice las
-consultas sobre políticas internas. De manera específica, se busca reducir la
-carga operativa, mejorar la precisión de las respuestas y optimizar la expe-
-riencia del colaborador.
-
-Como se muestra enla Figura2, el proceso de gestión de gastos deviaje se
-automatiza mediante validaciones basadas en políticas internas,reduciendo el
-trabajo manual del área de Finanzas y mejorando la trazabilidad del proceso.
-
-== Alcance del Proyecto Integrador
-
-Este proyecto se centrará en el desarrollo del agente conversacional
-embebido en la herramienta _core_ de comunicación dentro de Spin: Slack
-, así como de una plataforma web, ejecutada por un equipo de operaciones,
-que será capaz de gestionar la seguridad y acceso,monitorear el desempeño
-del bot, analizar las conversaciones de los _Spinners_ y
-obtener métricas de analítica. Todo lo anterior involucra el diseño,
-desarrollo e implementación de los siguientes puntos:
-
-1. Diseño de un modelo de datos con metodología Data Vault.
-2. Desarrollo de código del agente conversacional con Gemini.
-3. Implementación del código core en soluciones escalables y en la nube: Cloud Run.
-4. Integración del agente conversacional con Slack, a través de su API para desarrolladores.
-5. Creación de una base de datos PostgreSQL (idealmente en AlloyDB)
-que fungirá como repositorio central del modelo del punto 1.
-6. Desarrollo e implementación de la plataforma web para gestión, monitoreo y analítica
-    en React.
-
-== Preguntas clave
-
-Entre las preguntas que guían el desarrollo del proyecto se encuentran:
-¿cómo automatizar la validación de gastos respetando las políticas internas?,
-¿cómo garantizar respuestas consistentes y confiables?, ¿qué impacto tendrá
-la solución en la eficiencia operativa del área de Finanzas?,
-¿cómo ajustar el agente conversacional con el fin de mejorar su precisión y velocidad?,
-y ¿cómo medir la adopción y precisión del asistente conversacional?
-
-== Involucrados
-
-El proyecto involucra a distintos actores dentro de la organización. El
-sponsor del proyecto es el área de Finanzas dentro de Spin. El desarrollo e
-implementación están a cargo del Chapter de AI Products, liderado por Homero Merino que fungirá como nuestro patrocinador del proyecto
-, mientras que todos los _Spinners_ fungirán como usuarios finales de la solución.
-
-Adicionalmente, como se mencionó en la sección 3.4, también se considera
-un área de Operaciones que estará a cargo de la plataforma web
-de gestión de seguridad y accesos, monitoreo y mejora del agente, analítica avanzada, etc.
+  #figure(
+      image("images/Ejercicio1.png", width: 100%),
+      caption: [Ejecución del proyecto con 100000 números generados, chunks de tamaño 1000 e impresión de 100 resultados.]
+    )
 
 #pagebreak()
 
-= Entendimiento de los datos
+= Explicación del código y los resultados
 
-== Descripción de los datos
+El código se divide en 4 secciones principales:
 
-El proyecto se centra principalmente en datos no estructurados
-que incluyen documentos de políticas internas, lineamientos, FAQs y
-otros archivos oficiales almacenados en Google Drive.
+1. Importación de librerías, definición de variables y definición de funciones.
+2. Generación de números aleatorios para los arreglos a y b.
+3. Generación del arreglo c con la suma de los números generados en el paso anterior.
+4. Impresión de resultados.
 
-Adicionalmente, se consideran las consultas realizadas por los usuarios en
-Slack, las cuales permiten analizar patrones de uso, temas recurrentes y áreas
-de oportunidad en la cobertura del conocimiento institucional.
+== Importación de librerías, definición de variables y definición de funciones.
 
-== Técnica de Machine Learning
+Estas primeras líneas del código se centran en la importación
+de las librerías que usamos para todo el código, incluyendo la librería
+_random_ que nos servirá para generar los números aleatorios.
 
-La solución emplea una combinación de técnicas de aprendizaje automático.
-Se utiliza aprendizaje supervisado para la clasificación de intención de
-las consultas, aprendizaje no supervisado mediante embeddings para la re-
-cuperación de información relevante y modelos de lenguaje profundo para la
-generación de respuestas naturales. Todo ello se integra bajo un enfoque de
-Retrieval-Augmented Generation (RAG), asegurando que las respuestas se
-basen exclusivamente en fuentes oficiales.
+#raw(lang: "c++", "#include <iostream>
+#include <omp.h>
+#include <random>")
 
-== Identificación de variables
+A continuación, se definen las variables "N" que es el tamaño de cada
+uno de los arreglos (números que se generarán), "chunk" que corresponde
+al tamaño de esos "pedazos" en los que se divide la tarea entre los hilos
+y "mostrar" que hace referencia a cuántos números se mostrarán en la impresión
+de resultados. De igual forma, se declara nuestra función "imprimeArreglo"
+que recibirá un arreglo de números decimales como parámetro.
 
-Las variables de entrada incluyen el texto de las consultas de los usuarios,
-los documentos de políticas internas así como los
-metadatos del usuario, tales como rol y área. Las variables de salida consisten
-en la clasificación de intención, respuestas conversacionales alineadas con las
-políticas, alertas de posibles incumplimientos y métricas de uso y adopción
-del sistema.
+#raw(lang: "c++", "#define N 100000
+#define chunk 1000
+#define mostrar 100
 
-Asimismo, se pretende que el agente sea capaz de detectar información personal
-de los usuarios (PII) y les dé un tratamiento diferente para _enmascararlos_
-a nivel de base de datos, mejorando la seguridad del mismo.
+void imprimeArreglo(float *d);")
 
+Finalmente, se define el código de la función imprimeArreglo que
+básicamente recorre el arreglo de números flotantes que recibe como
+parámetro e imprime cada "posición" (cada número), separada por guiones
+medios.
 
-#figure(
-    image("images/Flujo_Asistente.png", width: 50%),
-    caption: [Flujo de operación del asistente conversacional Spin Compass.]
-  )
+#raw(lang: "c++", "void imprimeArreglo(float* d)
+{
+	for (int x = 0; x < mostrar; x++)
+		std::cout << d[x] << \" - \";
+	std::cout << std::endl;
+}")
 
-  La Figura anterior ilustra el flujo de operación del asistente conversacional,desde
-la recepción de la consulta en Slack hasta la generación de una respuesta
-alineada con las políticas internas o el escalamiento al equipo de soporte
-cuando no existe información documentada.
+== Generación de números aleatorios para los arreglos a y b.
+
+En el siguiente bloque se inicializa la función main del código y se
+crean los arreglos a, b y c, de tamaño N (la variable
+que declaramos al inicio). De igual forma, se define la variable "i"
+que nos servirá como apuntador en nuestro ciclo for que genera los
+números aleatorios para cada arreglo y finalmente, se declara la variable
+local "pedazos" que será del mismo valor que la variable "chunk" del inicio.
+
+#raw(lang: "c++", "int main()
+{
+	std::cout << \"Sumando Arreglos en Paralelo!\\n\";
+	float a[N], b[N], c[N];
+	int i;
+	int pedazos = chunk;")
+
+Este bloque de código es el encargado de generar los números aleatorios.
+En este bloque hay un par de cosas que vale la pena recalcar:
+
+1. Se utiliza pragma omp parallel con el fin de repartir las tareas
+  del bloque en diferentes hilos.
+2. La variable "i" se define como privada para evitar "colisiones"
+  o sobreescritura de la variable entre los diferentes hilos.
+3. Se emplea el algoritmo mt19937 con una semilla única por hilo (tid)
+  para asegurar que la generación de números sea independiente. Adicionalmente,
+  se utiliza uniform_real_distribution para generar números entre 1 y 100.
+4. Se utiliza pragma omp for schedule(static, pedazos) con el fin
+  de repartir las n iteraciones del ciclo for entre todos los hilos disponibles.
+  Con esto, finalmente se guarda cada número generado en cada una de las posiciones
+  de los arreglos a y b.
+
+#raw(lang: "c++", "#pragma omp parallel private(i)
+	{
+		int tid = omp_get_thread_num();
+		std::mt19937 gen(std::random_device{}() ^ tid);
+		std::uniform_real_distribution<float> dis(1.0, 100.0);
+
+		#pragma omp for schedule(static, pedazos)
+		for (i = 0; i < N; i++)
+		{
+			a[i] = dis(gen);
+			b[i] = dis(gen);
+		}
+	}")
+
+== Generación del arreglo c
+
+Una vez generados los arreglos a y b, se crea un nuevo ciclo for
+que, de igual forma, repartirá las n iteraciones del mismo entre
+todos los hilos disponibles.
+
+Como podemos ver, el ciclo for calcula la suma entre
+el número en la posición "i" del arreglo "a" con el número en la misma
+posición del arreglo "b" y guarda el resultado en el arreglo "c",
+para cada una de las posiciones en los arreglos.
+
+#raw(lang: "c++", "#pragma omp parallel for \\
+	shared(a,b,c, pedazos) private(i) \\
+	schedule(static, pedazos)
+
+	for (i = 0; i < N; i++)
+		c[i] = a[i] + b[i];")
+
+== Impresión de resultados
+
+Finalmente, se hace una impresión de resultados, utilizando
+la función imprimeArreglo para imprimir lor primeros n resultados,
+definidos por la variable "mostrar", para cada uno de los arreglos.
+
+De esta forma, podemos verificar que los resultados son los correctos;
+que, efectivamente, cada posición en "c" es el resultado de la suma
+de los números en la misma posición de los arreglos "a" y "b".
+
+#raw(lang: "c++", "std::cout << \"Imprimiendo los primeros \" << mostrar << \" valores del arreglo a: \" << std::endl;
+	imprimeArreglo(a);
+	std::cout << \"Imprimiendo los primeros \" << mostrar << \" valores del arreglo b: \" << std::endl;
+	imprimeArreglo(b);
+	std::cout << \"Imprimiendo los primeros \" << mostrar << \" valores del arreglo c: \" << std::endl;
+	imprimeArreglo(c);
+}")
+
+#pagebreak()
+
+== Código Completo
+
+#raw(lang:"c++","
+#include <iostream>
+#include <omp.h>
+#include <random>
+
+#define N 100000
+#define chunk 1000
+#define mostrar 100
+
+void imprimeArreglo(float *d);
+
+void imprimeArreglo(float* d)
+{
+	for (int x = 0; x < mostrar; x++)
+		std::cout << d[x] << \" - \";
+	std::cout << std::endl;
+}
+
+int main()
+{
+	std::cout << \"Sumando Arreglos en Paralelo!\\n\";
+	float a[N], b[N], c[N];
+	int i;
+	int pedazos = chunk;
+
+	#pragma omp parallel private(i)
+	{
+		int tid = omp_get_thread_num();
+		std::mt19937 gen(std::random_device{}() ^ tid);
+		std::uniform_real_distribution<float> dis(1.0, 100.0);
+
+		#pragma omp for schedule(static, pedazos)
+		for (i = 0; i < N; i++)
+		{
+			a[i] = dis(gen);
+			b[i] = dis(gen);
+		}
+	}
+
+	#pragma omp parallel for \\
+	shared(a,b,c, pedazos) private(i) \\
+	schedule(static, pedazos)
+
+	for (i = 0; i < N; i++)
+		c[i] = a[i] + b[i];
+
+	std::cout << \"Imprimiendo los primeros \" << mostrar << \" valores del arreglo a: \" << std::endl;
+	imprimeArreglo(a);
+	std::cout << \"Imprimiendo los primeros \" << mostrar << \" valores del arreglo b: \" << std::endl;
+	imprimeArreglo(b);
+	std::cout << \"Imprimiendo los primeros \" << mostrar << \" valores del arreglo c: \" << std::endl;
+	imprimeArreglo(c);
+}")
+
+#pagebreak()
+
+= Reflexión
+
+La programación paralela, ejemplificada en este proyecto con OpenMP,
+representa un cambio de paradigma respecto a la ejecución secuencial
+tradicional. De este ejercicio se desprenden las siguientes conclusiones:
+
+- *Eficiencia en Escala*: Para un arreglo de 1,000 elementos,
+  la diferencia de tiempo es imperceptible,
+  pero cuando escalamos a millones de datos o simulaciones físicas
+  complejas, la capacidad de dividir el "bucle for" entre los núcleos
+  disponibles del CPU reduce el tiempo de ejecución casi de forma lineal.
+
+- *Gestión de Memoria*: El código utiliza la cláusula private(i)
+  y shared(a,b,c). Esto es crítico: si el índice "i" no fuera privado,
+  los hilos entrarían en una "condición de carrera" (race condition),
+  intentando modificar la misma variable de control simultáneamente,
+  lo que colapsaría el programa.
+
+- *Abstracción de Complejidad*: OpenMP permite que el desarrollador
+  se concentre en la lógica del algoritmo mientras la librería
+  se encarga de la creación, sincronización
+  y destrucción de los hilos (threads).
+
+Finalmente, el ejercicio demuestra que la programación paralela
+no es solo una técnica de optimización, sino una necesidad
+arquitectónica. Al dominar herramientas como OpenMP, logramos que el
+software sea capaz de aprovechar el hardware multincúcleo actual,
+superando los límites físicos de la velocidad de procesamiento
+de un solo núcleo y abriendo la puerta a procesamientos
+de datos masivos con un control preciso sobre la memoria
+y la sincronización.
 
 #pagebreak()
 
